@@ -5,6 +5,7 @@ import productRouter from "./product";
 import cartRouter from "./cart";
 import orderRouter from "./order";
 import favoriteRouter from "./favorite";
+import watchRouter from "./watch";
 
 const router = Router();
 
@@ -24,5 +25,8 @@ router.use("/orders", orderRouter);
 
 // Favorite routes (requires authentication)
 router.use("/favorites", favoriteRouter);
+
+// Watch routes
+router.use("/watches", watchRouter);
 
 export default router;

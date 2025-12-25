@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes";
+import path from "path";
 
 const app = express();
 
@@ -8,6 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve images at http://localhost:4000/images/<filename>
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "..", "public", "images"), {
+    maxAge: "30d" // cache images for 30 days in browsers
+  })
+);
 
 // Request logging middleware (for debugging)
 app.use((req, res, next) => {

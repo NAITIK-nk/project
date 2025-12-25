@@ -120,3 +120,7 @@ That's it! Once you add JWT_SECRET to your `.env` file and restart the backend, 
 
 
 
+
+
+
+
