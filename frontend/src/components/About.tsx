@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Award, Users, Globe, Clock } from 'lucide-react';
 
+// Local images
+import casio3Image from './watchesimg/casio-3.jpg';
+import omega2Image from './watchesimg/omega-2.jpg';
+import seiko2Image from './watchesimg/seiko-2.jpg';
+import bgwatchImage from './watchesimg/bgwatch.jpg';
 /* ---------- Utilities ---------- */
 
 const useInView = (threshold = 0.2, rootMargin = '0px 0px -10% 0px') => {
@@ -83,6 +88,13 @@ const About: React.FC = () => {
   const teamRef = useInView();
   const ctaRef = useInView();
 
+  // Precompute count-up displays using hooks in fixed order (no loops/callbacks)
+  const display0 = useCountUp(statsRef.inView, stats[0].number, 1200);
+  const display1 = useCountUp(statsRef.inView, stats[1].number, 1400);
+  const display2 = useCountUp(statsRef.inView, stats[2].number, 1600);
+  const display3 = useCountUp(statsRef.inView, stats[3].number, 1800);
+  const displays = [display0, display1, display2, display3];
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -90,7 +102,7 @@ const About: React.FC = () => {
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=1920')" }}
+          style={{ backgroundImage: `url(${bgwatchImage})` }}
         >
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
@@ -117,16 +129,15 @@ const About: React.FC = () => {
             transform: intro.inView ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">The SAMAY Legacy</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">SAMAY — Curated Luxury Marketplace</h2>
           <p className="text-xl text-gray-600 leading-relaxed mb-8">
-            Since 2024, SAMAY has been at the forefront of luxury watchmaking, creating exceptional timepieces
-            that combine Indian precision with timeless elegance. Founded by master watchmaker Henri SAMAY in
-            the heart of Geneva, our company has grown from a small atelier to a globally recognized luxury brand.
+            SAMAY is a curated luxury watch marketplace connecting discerning collectors with authentic
+            timepieces from the world's most respected brands. We partner with authorized dealers and
+            trusted suppliers to ensure every watch we list is genuine and carefully vetted.
           </p>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Each SAMAY watch represents our unwavering commitment to excellence, innovative design, and the
-            finest craftsmanship. We don't just make watches; we create heirloom pieces that tell the story
-            of their owners for generations to come.
+            Our mission is to make premium watches accessible, trustworthy, and discoverable. We focus on
+            authenticity, service, and a best-in-class shopping experience for collectors and enthusiasts alike.
           </p>
         </div>
       </section>
@@ -186,7 +197,7 @@ const About: React.FC = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => {
-              const display = useCountUp(statsRef.inView, stat.number, 1200 + i * 200);
+              const display = displays[i];
               return (
                 <div
                   key={i}
@@ -224,20 +235,23 @@ const About: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
-                img: 'https://images.pexels.com/photos/1034063/pexels-photo-1034063.jpeg?auto=compress&cs=tinysrgb&w=400',
+                img: casio3Image,
                 title: 'Movement Assembly',
                 desc: 'Our master watchmakers assemble each movement by hand, ensuring precision and reliability that lasts generations.',
               },
+              
               {
-                img: 'https://images.pexels.com/photos/1034064/pexels-photo-1034064.jpeg?auto=compress&cs=tinysrgb&w=400',
+                img: seiko2Image,
                 title: 'Case Finishing',
                 desc: 'Skilled artisans meticulously polish and finish each case, creating the perfect balance of form and function.',
               },
+              
               {
-                img: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=400',
+                img: omega2Image,
                 title: 'Quality Control',
                 desc: 'Every timepiece undergoes rigorous testing and inspection to meet our exacting standards of excellence.',
               },
+              
             ].map((t, i) => (
               <div
                 key={t.title}
@@ -271,7 +285,7 @@ const About: React.FC = () => {
         >
           <h2 className="text-4xl font-bold mb-6">Become Part of Our Legacy</h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands of discerning collectors who have chosen SAMAY for their exceptional timepieces.
+            Join thousands of discerning collectors who have chosen our collection for their exceptional timepieces.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-yellow-600 px-8 py-4 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-300">

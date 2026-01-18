@@ -5,10 +5,14 @@ import { motion } from "framer-motion";
 import FeaturedWatches from "./FeaturedWatches";
 import Testimonials from "./Testimonials";
 import LogoLoop from "./LogoLoop";
+import TrustSignals from './TrustSignals';
 
-// Correctly import all local images using relative paths from the Home.tsx file
-import volexMidnightImage from "./watchesimg/volexx.png";
-import heroImage from "./watchesimg/samay.png";
+// Local watch images
+import casio1Image from "./watchesimg/casio-1.jpg";
+import fossil1Image from "./watchesimg/fossil-1.jpg";
+import rolex1Image from "./watchesimg/rolex-1.jpg";
+
+import bgwatchImage from "./watchesimg/bgwatch.jpg"; // hero background image (bgwatch)
 import rolexLogo from "./logo/Rolex-logo.png";
 import omegaLogo from "./logo/Omega-logo-768x432.png";
 import casioLogo from "./logo/Casio-Logo-768x432.png";
@@ -23,24 +27,23 @@ const Home: React.FC = () => {
   const newArrivals = [
     {
       id: 1,
-      name: "SAMAY Prestige Gold",
-      price: 12500,
-      image: "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800",
+      name: "Rolex Submariner",
+      price: 9800,
+      image: rolex1Image,
       isNew: true,
     },
     {
       id: 2,
-      name: "SAMAY Classic Steel",
-      price: 8900,
-      image: "https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=800",
+      name: "Fossil Grant Chronograph",
+      price: 180,
+      image: fossil1Image,
       isNew: true,
     },
     {
       id: 3,
-      name: "SAMAY Midnight Black",
-      price: 15000,
-      // Use the imported image variable
-      image: volexMidnightImage,
+      name: "Casio G-Shock",
+      price: 380,
+      image: casio1Image,
       isNew: true,
     },
   ];
@@ -50,7 +53,7 @@ const Home: React.FC = () => {
     {
       icon: <Shield className="h-8 w-8 text-white" />,
       title: "2-Year Warranty",
-      description: "Comprehensive coverage for all SAMAY timepieces",
+      description: "Comprehensive coverage for all timepieces", 
     },
     {
       icon: <Truck className="h-8 w-8 text-white" />,
@@ -84,8 +87,8 @@ const Home: React.FC = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src={heroImage}
-            alt="Luxury SAMAY Watch"
+            src={bgwatchImage}
+            alt="Luxury Watch Background"
             className="w-full h-full object-cover"
           />
           {/* Dark overlay for text readability */}
@@ -103,7 +106,7 @@ const Home: React.FC = () => {
             Timeless <span className="text-white block">Elegance</span>
           </h1>
           <p className="text-xl md:text-1xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-            Discover the perfect blend of Swiss craftsmanship and modern sophistication with SAMAY luxury timepieces.
+            Discover the perfect blend of Swiss craftsmanship and modern sophistication in our luxury timepieces.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -120,6 +123,8 @@ const Home: React.FC = () => {
               Our Heritage
             </Link>
           </div>
+
+          <TrustSignals />
         </motion.div>
       </section>
 
@@ -238,9 +243,9 @@ const Home: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose SAMAY</h2>
+            <h2 className="text-4xl font-bold mb-4">Why Choose Our Watches</h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Experience unparalleled service and quality with every SAMAY timepiece.
+              Experience unparalleled service and quality with every timepiece.
             </p>
           </div>
 
@@ -289,7 +294,7 @@ const Home: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold mb-6">Ready to Find Your Perfect Timepiece?</h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands of satisfied customers who have chosen SAMAY for their luxury watch collection.
+            Join thousands of satisfied customers who have chosen our collection for their luxury watch needs.
           </p>
           <Link
             to="/products"

@@ -13,9 +13,17 @@ const Footer = () => {
               <span className="text-2xl font-bold tracking-wider">SAMAY</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Crafting exceptional timepieces since 2024. Each SAMAY watch represents the pinnacle of Swiss craftsmanship and timeless elegance.
+              Curating authentic luxury timepieces from trusted brands worldwide. SAMAY is a marketplace dedicated to quality, authenticity, and service.
             </p>
-            <div className="flex space-x-4">
+
+            {/* Trust signals in footer */}
+            <div className="mt-4">
+              <div className="bg-white rounded-md inline-block p-3">
+                <div className="text-sm font-semibold">100% Authentic • Manufacturer Warranty • Secure Payments</div>
+              </div>
+            </div>
+
+            <div className="flex space-x-4 mt-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>

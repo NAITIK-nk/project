@@ -6,6 +6,12 @@ import { Award, Clock, Diamond, Globe } from 'lucide-react';
 import SAMAYClassicLogo from './watchesimg/volexx.png'; // Assuming you will rename this file appropriately
 import roseGoldLogo from './watchesimg/rosegold.png';
 
+// Local images for brand presentation
+import casio1Image from './watchesimg/casio-1.jpg';
+import fossil1Image from './watchesimg/fossil-1.jpg';
+import omega1Image from './watchesimg/omega-1.jpg';
+import seiko1Image from './watchesimg/seiko-1.jpg';
+
 // Reusable component for the story paragraphs
 const StoryParagraph = ({ title, children }: { title: string, children: React.ReactNode }) => {
   return (
@@ -20,23 +26,23 @@ const StoryParagraph = ({ title, children }: { title: string, children: React.Re
 const Brands: React.FC = () => {
   const brandLogos = [
     {
-      name: 'SAMAY',
-      logo: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=400',
+      name: 'Casio',
+      logo: casio1Image,
       description: 'Indian precision since 2024'
     },
     {
-      name: 'SAMAY SPORT',
-      logo: 'https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=400',
+      name: 'Fossil',
+      logo: fossil1Image,
       description: 'Performance meets elegance'
     },
     {
-      name: 'SAMAY CLASSIC',
+      name: 'Classic',
       logo: SAMAYClassicLogo,
       description: 'Timeless traditional craftsmanship'
     },
     {
-      name: 'SAMAY LUXURY',
-      logo: 'https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg?auto=compress&cs=tinysrgb&w=400',
+      name: 'Luxury',
+      logo: omega1Image,
       description: 'Ultimate luxury timepieces'
     }
   ];
@@ -44,13 +50,13 @@ const Brands: React.FC = () => {
   const achievements = [
     {
       icon: <Award className="h-8 w-8 text-yellow-500" />,
-      title: 'Indian Made Excellence',
-      description: 'Every SAMAY timepiece is crafted in India following the highest standards of quality and precision.'
+      title: 'Verified Authenticity',
+      description: 'Every listing on SAMAY is vetted for authenticity and provenance by our inspection team.'
     },
     {
       icon: <Clock className="h-8 w-8 text-yellow-500" />,
-      title: '20+ Years of Craftsmanship Expertise',
-      description: 'Founded by master watchmakers with decades of experience in haute horlogerie.'
+      title: '20+ Years of Industry Expertise',
+      description: 'Founded by industry veterans and collectors with decades of experience in horology and luxury markets.'
     },
     {
       icon: <Diamond className="h-8 w-8 text-yellow-500" />,
@@ -60,7 +66,7 @@ const Brands: React.FC = () => {
     {
       icon: <Globe className="h-8 w-8 text-yellow-500" />,
       title: 'Global Presence',
-      description: 'SAMAY boutiques and authorized dealers in over 120 countries worldwide.'
+      description: 'SAMAY partners with authorized dealers and trusted retailers in over 120 countries worldwide.'
     }
   ];
 
@@ -100,10 +106,11 @@ const Brands: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Our Brand Heritage</h1>
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">Our Curation & Partners</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Since 2024, SAMAY has been synonymous with Indian excellence, precision engineering, and timeless elegance. 
-            Our commitment to craftsmanship and innovation has made us one of the world's most respected luxury watch manufacturers.
+            SAMAY partners with authentic, established luxury brands and authorized dealers to curate a
+            selection of premium timepieces for collectors worldwide. Our focus is authenticity, provenance,
+            and a refined shopping experience.
           </p>
         </motion.div>
 
@@ -148,19 +155,18 @@ const Brands: React.FC = () => {
               transition={{ duration: 0.7 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-gray-800 mb-6">The SAMAY Story</h2>
-              <StoryParagraph title="The Genesis">
-                Founded in 2024 by a master watchmaker in the heart of Geneva, SAMAY began as a small 
-                atelier dedicated to creating exceptional timepieces for discerning collectors.
+              <h2 className="text-3xl font-bold text-gray-800 mb-6">About SAMAY</h2>
+              <StoryParagraph title="Our Beginning">
+                SAMAY launched to bring curated luxury watches from trusted global brands to discerning collectors.
+                We began by partnering with authorized dealers to list only verified, authentic timepieces.
               </StoryParagraph>
-              <StoryParagraph title="The Philosophy">
-                Our commitment to Indian excellence and innovative design has earned us recognition as one of the 
-                world's premier luxury watch manufacturers. Each SAMAY timepiece represents the perfect fusion 
-                of traditional craftsmanship and cutting-edge technology.
+              <StoryParagraph title="Our Philosophy">
+                We prioritize authenticity, transparency, and service. Every listing is vetted for provenance and
+                supplied by reputable partners to ensure buyer confidence.
               </StoryParagraph>
-              <StoryParagraph title="The Future">
-                Today, SAMAY continues to push the boundaries of horological excellence, creating watches that 
-                are not just instruments of time, but works of art that will be treasured for generations.
+              <StoryParagraph title="Our Vision">
+                To be the premier marketplace for collectors seeking premium, authenticated timepieces with
+                world-class service and a seamless buying experience.
               </StoryParagraph>
             </motion.div>
             <motion.div
@@ -171,8 +177,8 @@ const Brands: React.FC = () => {
               viewport={{ once: true }}
             >
               <img
-                src="https://images.pexels.com/photos/1034063/pexels-photo-1034063.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="SAMAY Heritage"
+                src={casio1Image}
+                alt="Heritage"
                 className="w-full rounded-lg shadow-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
@@ -212,8 +218,7 @@ const Brands: React.FC = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">A Legacy of Craftsmanship</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Every SAMAY watch is assembled by hand by our master craftsmen in our Geneva manufactory, 
-              ensuring each timepiece meets our exacting standards of excellence.
+              Every listing is authenticated and inspected by our specialist team to ensure provenance, condition, and accurate representation.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -226,13 +231,13 @@ const Brands: React.FC = () => {
             >
               <div className="aspect-square mb-6 rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  src={seiko1Image}
                   alt="Movement Assembly"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Movement Assembly</h3>
-              <p className="text-gray-600">Precision engineering of our in-house mechanical movements.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Authentication & Inspection</h3>
+              <p className="text-gray-600">Expert authentication and movement verification to confirm provenance and condition.</p>
             </motion.div>
             
             <motion.div 
@@ -244,13 +249,13 @@ const Brands: React.FC = () => {
             >
               <div className="aspect-square mb-6 rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="https://images.pexels.com/photos/1034064/pexels-photo-1034064.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  src={casio1Image}
                   alt="Case Finishing"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Case Finishing</h3>
-              <p className="text-gray-600">Meticulous polishing and finishing of precious metal cases.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Partner Quality Assurance</h3>
+              <p className="text-gray-600">Our partners adhere to strict quality standards for casing, finishing, and presentation.</p>
             </motion.div>
             
             <motion.div 
@@ -267,8 +272,8 @@ const Brands: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Quality Control</h3>
-              <p className="text-gray-600">Rigorous testing and inspection of every timepiece.</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Rigorous Testing</h3>
+              <p className="text-gray-600">Rigorous functional testing and condition verification before listing.</p>
             </motion.div>
           </div>
         </section>
