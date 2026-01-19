@@ -1,44 +1,50 @@
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Local watch images
+import rolex1Image from './watchesimg/rolex-1.jpg';
+import fossil1Image from './watchesimg/fossil-1.jpg';
+import omega2Image from './watchesimg/omega-2.jpg';
+import seiko1Image from './watchesimg/seiko-1.jpg';
+
 const FeaturedWatches = () => {
   const featuredWatches = [
     {
       id: 1,
-      name: 'SAMAY Prestige Gold',
-      price: 12500,
-      originalPrice: 15000,
-      image: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800',
+      name: 'Rolex Submariner',
+      price: 9800,
+      originalPrice: 10400,
+      image: rolex1Image,
       rating: 5,
-      description: 'Exquisite 18K gold timepiece with Swiss automatic movement',
+      description: 'Iconic diving watch with robust construction and classic design',
       isFeatured: true,
       isOnSale: true
     },
     {
       id: 2,
-      name: 'SAMAY Classic Steel',
-      price: 8900,
-      image: 'https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=800',
+      name: 'Fossil Grant Chronograph',
+      price: 180,
+      image: fossil1Image,
       rating: 5,
-      description: 'Timeless stainless steel design with precision engineering',
+      description: 'Classic chronograph with refined detailing and leather strap',
       isFeatured: true
     },
     {
       id: 3,
-      name: 'SAMAY Midnight Black',
-      price: 15000,
-      image: 'https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=800',
+      name: 'Omega Seamaster Diver 300M',
+      price: 6500,
+      image: omega2Image,
       rating: 5,
-      description: 'Bold black ceramic case with luminous markers',
+      description: 'Professional dive watch built for precision and reliability',
       isFeatured: true
     },
     {
       id: 4,
-      name: 'SAMAY Diamond Elite',
-      price: 25000,
-      image: 'https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg?auto=compress&cs=tinysrgb&w=800',
+      name: 'Seiko Prospex Turtle',
+      price: 520,
+      image: seiko1Image,
       rating: 5,
-      description: 'Ultimate luxury with diamond-set bezel and dial',
+      description: 'Durable sport watch with vintage-inspired case and modern movement',
       isFeatured: true
     }
   ];
@@ -108,10 +114,10 @@ const FeaturedWatches = () => {
               </div>
 
               {/* CTA Button */}
-              <button className="w-full bg-gray-900 text-white py-3 rounded-md font-semibold hover:bg-yellow-600 transition-all duration-300 group flex items-center justify-center space-x-2">
+              <Link to={`/product/${watch.id}`} className="w-full inline-flex bg-gray-900 text-white py-3 rounded-md font-semibold hover:bg-yellow-600 transition-all duration-300 group items-center justify-center space-x-2">
                 <span>View Details</span>
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
             </div>
 
             {/* Hover Overlay */}

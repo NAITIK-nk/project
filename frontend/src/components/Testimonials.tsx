@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 
+// Local neutral avatars for testimonials
+import avatar1 from './watchesimg/avatar-1.svg';
+import avatar2 from './watchesimg/avatar-2.svg';
+import avatar3 from './watchesimg/avatar-3.svg';
+import avatar4 from './watchesimg/avatar-4.svg';
+import avatar5 from './watchesimg/avatar-5.svg';
+
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
@@ -9,45 +16,45 @@ const Testimonials = () => {
       id: 1,
       name: 'James Wellington',
       title: 'CEO, Wellington Enterprises',
-      image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: avatar1,
       rating: 5,
-      text: 'My SAMAY Prestige Gold is more than just a timepiece—it\'s a statement of excellence. The craftsmanship is absolutely extraordinary, and the attention to detail is unmatched.',
+      text: 'My Rolex Submariner is more than just a timepiece—it\'s a statement of excellence. The craftsmanship is absolutely extraordinary, and the attention to detail is unmatched.',
       location: 'New York, USA'
     },
     {
       id: 2,
       name: 'Sofia Rodriguez',
       title: 'Fashion Designer',
-      image: 'https://images.pexels.com/photos/1043473/pexels-photo-1043473.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: avatar2,
       rating: 5,
-      text: 'I\'ve owned luxury watches from many brands, but SAMAY stands apart. The elegance and precision of my Classic Steel model perfectly complement my professional style.',
+      text: 'I\'ve owned luxury watches from many brands, but Fossil stands apart. The elegance and precision of my Fossil Classic Steel model perfectly complement my professional style.',
       location: 'Madrid, Spain'
     },
     {
       id: 3,
       name: 'Alexander Chen',
       title: 'Investment Banker',
-      image: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: avatar3,
       rating: 5,
-      text: 'The SAMAY Diamond Elite is a masterpiece. Every detail reflects the brand\'s commitment to luxury and innovation. It\'s an investment in both style and heritage.',
+      text: 'The Seiko Diamond Elite is a masterpiece. Every detail reflects the brand\'s commitment to luxury and innovation. It\'s an investment in both style and heritage.',
       location: 'Hong Kong'
     },
     {
       id: 4,
       name: 'Isabella Thompson',
       title: 'Art Collector',
-      image: 'https://images.pexels.com/photos/1043475/pexels-photo-1043475.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: avatar4,
       rating: 5,
-      text: 'My SAMAY Midnight Black is a work of art on my wrist. The Swiss movement is incredibly precise, and the customer service has been exceptional throughout my ownership.',
+      text: 'My Omega Midnight Black is a work of art on my wrist. The Swiss movement is incredibly precise, and the customer service has been exceptional throughout my ownership.',
       location: 'London, UK'
     },
     {
       id: 5,
       name: 'David Martinez',
       title: 'Tech Entrepreneur',
-      image: 'https://images.pexels.com/photos/1043476/pexels-photo-1043476.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: avatar5,
       rating: 5,
-      text: 'SAMAY combines traditional craftsmanship with modern innovation perfectly. My Ocean Blue model has been my daily companion for three years, and it still looks pristine.',
+      text: 'This collection combines traditional craftsmanship with modern innovation perfectly. My Casio Ocean Blue model has been my daily companion for three years, and it still looks pristine.',
       location: 'San Francisco, USA'
     }
   ];
@@ -75,7 +82,7 @@ const Testimonials = () => {
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Discover why discerning collectors worldwide trust SAMAY for their luxury timepiece needs.
+          Discover why discerning collectors worldwide trust SAMAY to source authentic, premium watches from top luxury brands.
         </p>
       </div>
 
