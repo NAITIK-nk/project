@@ -84,7 +84,11 @@ router.get('/:id', async (req, res) => {
 router.post('/add', optionalAuth, async (req, res) => {
   try {
     const { userId, productId, name, price, image, quantity = 1 } = req.body;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     if (!userId) {
       return res.status(400).json({
         success: false,
@@ -151,7 +155,11 @@ router.post('/add', optionalAuth, async (req, res) => {
 router.put('/update', optionalAuth, async (req, res) => {
   try {
     const { userId, productId, quantity } = req.body;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     if (!userId || !productId || quantity === undefined) {
       return res.status(400).json({
         success: false,
@@ -208,7 +216,11 @@ router.put('/update', optionalAuth, async (req, res) => {
 router.post('/remove', optionalAuth, async (req, res) => {
   try {
     const { userId, productId } = req.body;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     if (!userId || !productId) {
       return res.status(400).json({
         success: false,

@@ -10,8 +10,12 @@
     "create-admin": "node scripts/createAdmin.js",
     "update-admin": "node scripts/updateUserToAdmin.js",
     "list-users": "node scripts/listUsers.js",
+<<<<<<< HEAD
     "fix-favorite-indexes": "node scripts/fixFavoriteIndexes.js",
     "import-products": "node scripts/importProducts.js"
+=======
+    "fix-favorite-indexes": "node scripts/fixFavoriteIndexes.js"
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
   },
   "keywords": [
     "samay",
@@ -26,7 +30,11 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.3",
+<<<<<<< HEAD
     "mongoose": "^7.6.3",
     "resend": "^6.7.0"
+=======
+    "mongoose": "^7.6.3"
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
   }
 }

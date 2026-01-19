@@ -200,6 +200,7 @@ function AppContent() {
     }
 
     if (isAuthenticated && user?.id) {
+<<<<<<< HEAD
         try {
           const response = await api.put(`/carts/update`, {
             userId: user.id,
@@ -215,6 +216,23 @@ function AppContent() {
           } else {
             const errorText = await response.text();
             console.error('[App] Failed to update cart quantity:', errorText);
+=======
+      try {
+        const response = await api.put(`/carts/update`, {
+          userId: user.id,
+          productId: id.toString(),
+          quantity
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          if (!result.success) {
+            console.error('[App] Failed to update cart quantity:', result.message);
+          }
+        } else {
+          const errorText = await response.text();
+          console.error('[App] Failed to update cart quantity:', errorText);
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
         }
       } catch (error) {
         console.error('[App] Error updating cart quantity in database:', error);
@@ -226,6 +244,7 @@ function AppContent() {
     setCartItems(prevItems => prevItems.filter(item => item.id !== id));
 
     if (isAuthenticated && user?.id) {
+<<<<<<< HEAD
         try {
           const response = await api.post(`/carts/remove`, {
             userId: user.id,
@@ -240,6 +259,22 @@ function AppContent() {
           } else {
             const errorText = await response.text();
             console.error('[App] Failed to remove product from cart:', errorText);
+=======
+      try {
+        const response = await api.post(`/carts/remove`, {
+          userId: user.id,
+          productId: id.toString()
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          if (!result.success) {
+            console.error('[App] Failed to remove product from cart:', result.message);
+          }
+        } else {
+          const errorText = await response.text();
+          console.error('[App] Failed to remove product from cart:', errorText);
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
         }
       } catch (error) {
         console.error('[App] Error removing product from cart in database:', error);
@@ -269,6 +304,7 @@ function AppContent() {
     });
 
     if (isAuthenticated && user?.id) {
+<<<<<<< HEAD
         try {
           const response = await api.post(`/favorites/toggle`, {
             userId: user.id,
@@ -292,6 +328,31 @@ function AppContent() {
           } else {
             const errorText = await response.text();
             console.error('[App] Failed to toggle favorite:', errorText);
+=======
+      try {
+        const response = await api.post(`/favorites/toggle`, {
+          userId: user.id,
+          productId: productId.toString()
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          if (!result.success) {
+            console.error('[App] Failed to toggle favorite:', result.message);
+            setFavorites(prevFavorites => {
+              const newFavorites = new Set(prevFavorites);
+              if (wasFavorite) {
+                newFavorites.add(productId);
+              } else {
+                newFavorites.delete(productId);
+              }
+              return newFavorites;
+            });
+          }
+        } else {
+          const errorText = await response.text();
+          console.error('[App] Failed to toggle favorite:', errorText);
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
           setFavorites(prevFavorites => {
             const newFavorites = new Set(prevFavorites);
             if (wasFavorite) {

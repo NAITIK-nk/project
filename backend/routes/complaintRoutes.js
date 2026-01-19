@@ -1,6 +1,9 @@
 import express from 'express';
 import Complaint from '../models/Complaint.js';
+<<<<<<< HEAD
 import { sendComplaintMail } from '../utils/sendMail.js';
+=======
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
 
 const router = express.Router();
 
@@ -17,7 +20,10 @@ router.post('/', async (req, res) => {
       });
     }
 
+<<<<<<< HEAD
     // Save complaint to database
+=======
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     const complaint = new Complaint({
       name,
       email,
@@ -27,19 +33,25 @@ router.post('/', async (req, res) => {
 
     const savedComplaint = await complaint.save();
     
+<<<<<<< HEAD
     // Send emails asynchronously (don't block response if email fails)
     sendComplaintMail({ name, email, subject, message }).catch(error => {
       console.error('[Complaint Route] Email sending failed:', error);
       // Log error but don't fail the request
     });
     
+=======
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     res.status(201).json({
       success: true,
       message: 'Complaint submitted successfully',
       data: savedComplaint
     });
   } catch (error) {
+<<<<<<< HEAD
     console.error('[Complaint Route] Error:', error);
+=======
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     res.status(400).json({
       success: false,
       message: error.message

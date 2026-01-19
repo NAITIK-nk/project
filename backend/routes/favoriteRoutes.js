@@ -75,8 +75,13 @@ router.get('/:id', async (req, res) => {
 // POST /api/favorites/toggle - Toggle favorite (add if not exists, remove if exists)
 router.post('/toggle', optionalAuth, async (req, res) => {
   const userIdFromToken = req.userId;
+<<<<<<< HEAD
     const { userId: userIdFromBody, productId } = req.body;
     
+=======
+  const { userId: userIdFromBody, productId } = req.body;
+  
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
   try {
     const userId = userIdFromToken || userIdFromBody;
 
@@ -95,7 +100,11 @@ router.post('/toggle', optionalAuth, async (req, res) => {
     }
 
     const normalizedProductId = String(productId);
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     const existingFavorite = await Favorite.findOne({ 
       userId: new mongoose.Types.ObjectId(userId), 
       productId: normalizedProductId

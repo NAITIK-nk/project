@@ -9,6 +9,7 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+<<<<<<< HEAD
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Name, email, and password are required' });
     }
@@ -18,15 +19,22 @@ router.post('/register', async (req, res) => {
     }
 
     const existing = await User.findOne({ email: email.toLowerCase().trim() });
+=======
+    const existing = await User.findOne({ email });
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     if (existing) {
       return res.status(400).json({ error: 'User already exists' });
     }
 
+<<<<<<< HEAD
     const user = await User.create({ 
       name: name.trim(), 
       email: email.toLowerCase().trim(), 
       password 
     });
+=======
+    const user = await User.create({ name, email, password });
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
 
     if (!user.role) {
       user.role = 'user';
@@ -34,7 +42,11 @@ router.post('/register', async (req, res) => {
     }
 
     const token = jwt.sign(
+<<<<<<< HEAD
       { userId: user._id.toString(), email: user.email, role: user.role },
+=======
+      { userId: user._id, email: user.email, role: user.role },
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '7d' }
     );
@@ -49,9 +61,12 @@ router.post('/register', async (req, res) => {
     res.json({ token, user: userResponse });
   } catch (err) {
     console.error('[REGISTER] Error:', err);
+<<<<<<< HEAD
     if (err.code === 11000) {
       return res.status(400).json({ error: 'User already exists' });
     }
+=======
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     res.status(500).json({ error: 'Server error' });
   }
 });
@@ -61,11 +76,15 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+<<<<<<< HEAD
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
     const user = await User.findOne({ email: email.toLowerCase().trim() });
+=======
+    const user = await User.findOne({ email });
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
 
     if (!user) {
       return res.status(400).json({ error: 'Invalid credentials' });
@@ -77,21 +96,32 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
 
+<<<<<<< HEAD
     // Fix malformed role field if exists
+=======
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
     if (user[' role ']) {
       user.role = user[' role '];
       delete user[' role '];
       await user.save();
     }
 
+<<<<<<< HEAD
     // Ensure role exists
     if (!user.role || (user.role !== 'user' && user.role !== 'admin')) {
+=======
+    if (!user.role) {
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
       user.role = 'user';
       await user.save();
     }
 
     const token = jwt.sign(
+<<<<<<< HEAD
       { userId: user._id.toString(), email: user.email, role: user.role },
+=======
+      { userId: user._id, email: user.email, role: user.role },
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '7d' }
     );
