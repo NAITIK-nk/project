@@ -42,7 +42,7 @@ const Services = () => {
       icon: <Shield className="h-12 w-12 text-yellow-600" />,
       title: '2-Year International Warranty',
       description:
-        'Comprehensive warranty coverage for all SAMAY timepieces, honored at authorized service centers worldwide.',
+        'Comprehensive warranty coverage for all timepieces purchased through SAMAY, honored at authorized service centers worldwide.',
       features: ['International warranty coverage', 'Authorized service centers globally', 'Original parts guarantee', 'Water resistance testing'],
     },
     {
@@ -55,14 +55,14 @@ const Services = () => {
   ];
 
   const additionalServices = [
-    { icon: <Award className="h-8 w-8 text-yellow-600" />, title: 'Authentication Guarantee', description: 'Every SAMAY timepiece comes with a certificate of authenticity and detailed documentation.' },
-    { icon: <Wrench className="h-8 w-8 text-yellow-600" />, title: 'Professional Servicing', description: 'Expert maintenance and repair services by certified SAMAY technicians worldwide.' },
+    { icon: <Award className="h-8 w-8 text-yellow-600" />, title: 'Authentication Guarantee', description: 'Every authenticated listing includes a certificate of authenticity and detailed documentation.' },
+    { icon: <Wrench className="h-8 w-8 text-yellow-600" />, title: 'Professional Servicing', description: 'Expert maintenance and repair services by certified technicians at authorized centers worldwide.' },
     { icon: <Phone className="h-8 w-8 text-yellow-600" />, title: 'Personal Consultation', description: 'One-on-one consultations with our watch experts to help you find the perfect timepiece.' },
   ];
 
   const serviceProcess = [
     { step: '01', title: 'Contact Us', description: 'Reach out to our customer service team via phone, email, or live chat.' },
-    { step: '02', title: 'Schedule Service', description: 'Book an appointment at your nearest authorized SAMAY service center.' },
+    { step: '02', title: 'Schedule Service', description: 'Book an appointment at your nearest authorized service center.' },
     { step: '03', title: 'Expert Assessment', description: 'Our certified technicians will thoroughly examine your timepiece.' },
     { step: '04', title: 'Service Complete', description: 'Your watch is serviced with genuine parts and returned with a service warranty.' },
   ];
@@ -90,8 +90,7 @@ const Services = () => {
         >
           <h1 className="text-4xl font-bold text-gray-900 mb-6">Premium Services</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Experience unparalleled service and support with every SAMAY timepiece. Our commitment to excellence
-            extends far beyond the point of purchase.
+            Experience unparalleled service and support with every purchase on SAMAY. Our commitment to excellence extends far beyond the point of purchase.
           </p>
         </div>
 
@@ -228,7 +227,7 @@ const Services = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Authorized Service Centers</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Find expert care for your SAMAY timepiece at our authorized service centers worldwide.
+              Find expert care for your timepiece at our authorized service centers worldwide.
             </p>
           </div>
 

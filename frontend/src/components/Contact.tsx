@@ -3,6 +3,9 @@ import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// Base API URL for backend; can be set in .env as VITE_API_URL
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 /* -------- Utilities: reveal on scroll -------- */
 const useInView = (threshold = 0.2, rootMargin = '0px 0px -10% 0px') => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -27,6 +30,8 @@ const useInView = (threshold = 0.2, rootMargin = '0px 0px -10% 0px') => {
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [sending, setSending] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -37,12 +42,46 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSuccessMessage(null);
+    setErrorMessage(null);
+
+    // Basic client-side validation
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setErrorMessage('Please fill in all required fields.');
+      return;
+    }
+
     setSending(true);
-    await new Promise(r => setTimeout(r, 1200));
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setSending(false);
-    alert("Thank you for your message. We'll get back to you soon!");
+
+    try {
+      const res = await fetch(`${API_BASE}/api/complaints`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data && data.success) {
+        setSuccessMessage(data.message || 'Message sent successfully');
+        // Clear form
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        // Auto-clear success message after a short delay
+        setTimeout(() => setSuccessMessage(null), 4000);
+      } else {
+        setErrorMessage(data?.message || 'Failed to send message. Please try again later.');
+      }
+    } catch (err) {
+      console.error('Error sending contact message:', err);
+      setErrorMessage('Network error. Please try again later.');
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactInfo = [
@@ -105,9 +144,19 @@ const Contact: React.FC = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              {successMessage && (
+                <div className="p-3 rounded-md bg-green-50 border border-green-200 text-green-800 text-sm">
+                  {successMessage}
+                </div>
+              )}
+              {errorMessage && (
+                <div className="p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-sm">
+                  {errorMessage}
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="transition-all duration-700" style={{ transitionDelay: '60ms' }}>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name *
                   </label>
                   <input

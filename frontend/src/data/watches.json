@@ -2,61 +2,61 @@
   {
     "brand": "Rolex",
     "watches": [
-      { "id": "rolex-1", "name": "Submariner Date", "price": 9800, "originalPrice": 10400, "category": "Luxury", "gender": "Men", "image": "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800", "isOnSale": true },
-      { "id": "rolex-2", "name": "Oyster Perpetual 36", "price": 6300, "category": "Classic", "gender": "Unisex", "image": "https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "rolex-3", "name": "Day-Date 40", "price": 18400, "category": "Luxury", "gender": "Men", "image": "https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "rolex-4", "name": "Datejust 31", "price": 9200, "category": "Classic", "gender": "Women", "image": "https://images.pexels.com/photos/1034064/pexels-photo-1034064.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "rolex-5", "name": "Explorer II", "price": 8500, "category": "Sport", "gender": "Men", "image": "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=800" }
+      { "id": "rolex-1", "name": "Submariner Date", "price": 9800, "originalPrice": 10400, "category": "Luxury", "gender": "Men", "image": "/src/components/watchesimg/rolex-1.jpg", "isOnSale": true },
+      { "id": "rolex-2", "name": "Datejust 41", "price": 6300, "category": "Classic", "gender": "Unisex", "image": "/src/components/watchesimg/rolex-2.jpg" },
+      { "id": "rolex-3", "name": "Cosmograph Daytona", "price": 18400, "category": "Luxury", "gender": "Men", "image": "/src/components/watchesimg/rolex-3.jpg" },
+      { "id": "rolex-4", "name": "Datejust 31", "price": 9200, "category": "Classic", "gender": "Women", "image": "/src/components/watchesimg/rolex-4.jpg" },
+      { "id": "rolex-5", "name": "Explorer II", "price": 8500, "category": "Sport", "gender": "Men", "image": "/src/components/watchesimg/rolex-5.jpg" }
     ]
   },
   {
     "brand": "Titan",
     "watches": [
-      { "id": "titan-1", "name": "Edge Ceramic", "price": 420, "category": "Classic", "gender": "Men", "image": "https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "titan-2", "name": "Grandmaster Automatic", "price": 560, "category": "Luxury", "gender": "Men", "image": "https://images.pexels.com/photos/1034063/pexels-photo-1034063.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "titan-3", "name": "Raga Viva Rose", "price": 310, "category": "Classic", "gender": "Women", "image": "https://images.pexels.com/photos/1034064/pexels-photo-1034064.jpeg?auto=compress&cs=tinysrgb&w=800", "isOnSale": true },
-      { "id": "titan-4", "name": "Octane Sport", "price": 280, "category": "Sport", "gender": "Men", "image": "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "titan-5", "name": "Neo Gents", "price": 190, "category": "Casual", "gender": "Men", "image": "https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=800" }
+      { "id": "titan-1", "name": "Edge Ceramic", "price": 420, "category": "Classic", "gender": "Men", "image": "/src/components/watchesimg/titan-1.jpg" },
+      { "id": "titan-2", "name": "Neo Analog", "price": 560, "category": "Luxury", "gender": "Men", "image": "/src/components/watchesimg/titan-2.jpg" },
+      { "id": "titan-3", "name": "Raga Viva Rose", "price": 310, "category": "Classic", "gender": "Women", "image": "/src/components/watchesimg/titan-3.jpg", "isOnSale": true },
+      { "id": "titan-4", "name": "Octane Sport", "price": 280, "category": "Sport", "gender": "Men", "image": "/src/components/watchesimg/titan-4.jpg" },
+      { "id": "titan-5", "name": "Neo Gents", "price": 190, "category": "Casual", "gender": "Men", "image": "/src/components/watchesimg/titan-5.jpg" }
     ]
   },
   {
     "brand": "Casio",
     "watches": [
-      { "id": "casio-1", "name": "G-Shock Mudmaster", "price": 380, "category": "Sport", "gender": "Men", "image": "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "casio-2", "name": "Edifice Solar", "price": 260, "category": "Sport", "gender": "Men", "image": "https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "casio-3", "name": "Vintage A168", "price": 55, "category": "Casual", "gender": "Unisex", "image": "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800", "isOnSale": true },
-      { "id": "casio-4", "name": "Sheen Crystal", "price": 180, "category": "Classic", "gender": "Women", "image": "https://images.pexels.com/photos/1034063/pexels-photo-1034063.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "casio-5", "name": "Pro Trek Tough Solar", "price": 420, "category": "Outdoor", "gender": "Men", "image": "https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg?auto=compress&cs=tinysrgb&w=800" }
+      { "id": "casio-1", "name": "G-Shock GA-2100", "price": 380, "category": "Sport", "gender": "Men", "image": "/src/components/watchesimg/casio-1.jpg" },
+      { "id": "casio-2", "name": "Edifice EFV-100", "price": 260, "category": "Sport", "gender": "Men", "image": "/src/components/watchesimg/casio-2.jpg" },
+      { "id": "casio-3", "name": "Vintage A168", "price": 55, "category": "Casual", "gender": "Unisex", "image": "/src/components/watchesimg/casio-3.jpg", "isOnSale": true },
+      { "id": "casio-4", "name": "Sheen Crystal", "price": 180, "category": "Classic", "gender": "Women", "image": "/src/components/watchesimg/casio-4.jpg" },
+      { "id": "casio-5", "name": "Pro Trek Tough Solar", "price": 420, "category": "Outdoor", "gender": "Men", "image": "/src/components/watchesimg/casio-5.jpg" }
     ]
   },
   {
     "brand": "Omega",
     "watches": [
-      { "id": "omega-1", "name": "Speedmaster Moonwatch", "price": 7100, "category": "Sport", "gender": "Men", "image": "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "omega-2", "name": "Seamaster Diver 300M", "price": 6500, "category": "Sport", "gender": "Men", "image": "https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "omega-3", "name": "Constellation Manhattan", "price": 5400, "category": "Luxury", "gender": "Women", "image": "https://images.pexels.com/photos/1034064/pexels-photo-1034064.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "omega-4", "name": "De Ville Prestige", "price": 5100, "category": "Classic", "gender": "Unisex", "image": "https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "omega-5", "name": "Aqua Terra", "price": 5900, "category": "Luxury", "gender": "Men", "image": "https://images.pexels.com/photos/1034063/pexels-photo-1034063.jpeg?auto=compress&cs=tinysrgb&w=800", "isOnSale": true }
+      { "id": "omega-1", "name": "Speedmaster Moonwatch", "price": 7100, "category": "Sport", "gender": "Men", "image": "/src/components/watchesimg/omega-1.jpg" },
+      { "id": "omega-2", "name": "Seamaster Diver 300M", "price": 6500, "category": "Sport", "gender": "Men", "image": "/src/components/watchesimg/omega-2.jpg" },
+      { "id": "omega-3", "name": "Constellation Manhattan", "price": 5400, "category": "Luxury", "gender": "Women", "image": "/src/components/watchesimg/omega-3.jpg" },
+      { "id": "omega-4", "name": "De Ville Prestige", "price": 5100, "category": "Classic", "gender": "Unisex", "image": "/src/components/watchesimg/omega-4.jpg" },
+      { "id": "omega-5", "name": "Aqua Terra", "price": 5900, "category": "Luxury", "gender": "Men", "image": "/src/components/watchesimg/omega-5.jpg", "isOnSale": true }
     ]
   },
   {
     "brand": "Seiko",
     "watches": [
-      { "id": "seiko-1", "name": "Prospex Turtle", "price": 520, "category": "Sport", "gender": "Men", "image": "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "seiko-2", "name": "Presage Cocktail Time", "price": 470, "category": "Classic", "gender": "Men", "image": "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "seiko-3", "name": "Astron GPS Solar", "price": 1900, "category": "Tech", "gender": "Men", "image": "https://images.pexels.com/photos/1697214/pexels-photo-1697214.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "seiko-4", "name": "5 Sports Field", "price": 320, "category": "Casual", "gender": "Unisex", "image": "https://images.pexels.com/photos/1034064/pexels-photo-1034064.jpeg?auto=compress&cs=tinysrgb&w=800", "isOnSale": true },
-      { "id": "seiko-5", "name": "Lukia Automatic", "price": 860, "category": "Luxury", "gender": "Women", "image": "https://images.pexels.com/photos/1034063/pexels-photo-1034063.jpeg?auto=compress&cs=tinysrgb&w=800" }
+      { "id": "seiko-1", "name": "Prospex Turtle", "price": 520, "category": "Sport", "gender": "Men", "image": "/src/components/watchesimg/seiko-1.jpg" },
+      { "id": "seiko-2", "name": "Presage Cocktail Time", "price": 470, "category": "Classic", "gender": "Men", "image": "/src/components/watchesimg/seiko-2.jpg" },
+      { "id": "seiko-3", "name": "Astron GPS Solar", "price": 1900, "category": "Tech", "gender": "Men", "image": "/src/components/watchesimg/seiko-3.jpg" },
+      { "id": "seiko-4", "name": "5 Sports Field", "price": 320, "category": "Casual", "gender": "Unisex", "image": "/src/components/watchesimg/seiko-4.jpg", "isOnSale": true },
+      { "id": "seiko-5", "name": "Lukia Automatic", "price": 860, "category": "Luxury", "gender": "Women", "image": "/src/components/watchesimg/seiko-5.jpg" }
     ]
   },
   {
     "brand": "Fossil",
     "watches": [
-      { "id": "fossil-1", "name": "Grant Chronograph", "price": 180, "category": "Classic", "gender": "Men", "image": "https://images.pexels.com/photos/277390/pexels-photo-277390.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "fossil-2", "name": "Georgia Mini", "price": 150, "category": "Classic", "gender": "Women", "image": "https://images.pexels.com/photos/1034064/pexels-photo-1034064.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "fossil-3", "name": "Machine Automatic", "price": 240, "category": "Industrial", "gender": "Men", "image": "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "fossil-4", "name": "Hybrid Smartwatch HR", "price": 220, "category": "Hybrid", "gender": "Unisex", "image": "https://images.pexels.com/photos/1697215/pexels-photo-1697215.jpeg?auto=compress&cs=tinysrgb&w=800" },
-      { "id": "fossil-5", "name": "Carraway Three-Hand", "price": 200, "category": "Casual", "gender": "Men", "image": "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=800", "isOnSale": true }
+      { "id": "fossil-1", "name": "Grant Chronograph", "price": 180, "category": "Classic", "gender": "Men", "image": "/src/components/watchesimg/fossil-1.jpg" },
+      { "id": "fossil-2", "name": "Georgia Mini", "price": 150, "category": "Classic", "gender": "Women", "image": "/src/components/watchesimg/fossil-2.jpg" },
+      { "id": "fossil-3", "name": "Townsman Automatic", "price": 240, "category": "Industrial", "gender": "Men", "image": "/src/components/watchesimg/fossil-3.jpg" },
+      { "id": "fossil-4", "name": "Hybrid Smartwatch HR", "price": 220, "category": "Hybrid", "gender": "Unisex", "image": "/src/components/watchesimg/fossil-4.jpg" },
+      { "id": "fossil-5", "name": "Carraway Three-Hand", "price": 200, "category": "Casual", "gender": "Men", "image": "/src/components/watchesimg/fossil-5.jpg", "isOnSale": true }
     ]
   }
 ]

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { ShoppingCart, Heart, Eye, ChevronDown } from 'lucide-react';
+import { ShoppingCart, Heart, ChevronDown, Shuffle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -39,6 +39,8 @@ interface ProductsProps {
   addToCart: (product: Omit<Product, 'category' | 'brand' | 'isOnSale' | 'originalPrice' | 'gender'>) => void;
   favorites: Set<number>;
   toggleFavorite: (productId: number) => void;
+  toggleCompare?: (product: Product) => void;
+  compareList?: Product[];
 }
 
 const useReveal = (rootMargin = '0px 0px -10% 0px') => {
@@ -128,7 +130,16 @@ const Products: React.FC<ProductsProps> = ({ addToCart, favorites, toggleFavorit
     return categoryMatch && brandMatch && genderMatch;
   });
 
-  const SmoothAccordion = ({ title, options, selectedValue, onSelect, isOpen, onToggle }: any) => {
+interface SmoothAccordionProps {
+    title: string;
+    options: string[];
+    selectedValue: string;
+    onSelect: (val: string) => void;
+    isOpen: boolean;
+    onToggle: () => void;
+  }
+
+  const SmoothAccordion: React.FC<SmoothAccordionProps> = ({ title, options, selectedValue, onSelect, isOpen, onToggle }) => {
     const contentRef = useRef<HTMLDivElement>(null);
     const [maxHeight, setMaxHeight] = useState('0px');
 
@@ -311,16 +322,22 @@ const Products: React.FC<ProductsProps> = ({ addToCart, favorites, toggleFavorit
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 will-change-transform"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    <button className="p-3 bg-white rounded-full hover:bg-gray-100 transition-colors" aria-label="View Product">
-                      <Eye className="h-5 w-5 text-gray-700" />
-                    </button>
                     <button
                       className="p-3 bg-white rounded-full hover:bg-gray-100 transition-colors"
-                      onClick={() => handleToggleFavorite(product.id)}
+                      onClick={(e) => { e.stopPropagation(); handleToggleFavorite(product.id); }}
                       aria-label="Toggle Favorite"
                     >
                       <Heart className={`h-5 w-5 transition-all duration-300 ${isFavorite ? 'text-red-500 fill-current' : 'text-gray-700'}`} />
                     </button>
+                    {typeof toggleCompare === 'function' && (
+                      <button
+                        className="p-3 bg-white rounded-full hover:bg-gray-100 transition-colors"
+                        onClick={() => toggleCompare(product)}
+                        aria-label="Compare"
+                      >
+                        <Shuffle className={`h-5 w-5 ${compareList?.find((p: Product) => p.id === product.id) ? 'text-yellow-600' : 'text-gray-700'}`} />
+                      </button>
+                    )}
                   </div>
                 </div>
 

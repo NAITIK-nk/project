@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CreditCard, AlertCircle, CheckCircle, Lock } from 'lucide-react';
+import { CreditCard, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface PaymentFormData {
@@ -25,6 +25,7 @@ interface PaymentStatus {
 
 export default function Payment() {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState<PaymentFormData>({
     cardholderName: '',
     cardNumber: '',
@@ -40,381 +41,225 @@ export default function Payment() {
     message: '',
   });
 
-  // Validation functions
-  const validateCardholderName = (name: string): string | undefined => {
+  /* ---------------- VALIDATIONS ---------------- */
+
+  const validateCardholderName = (name: string) => {
     if (!name.trim()) return 'Cardholder name is required';
-    if (name.trim().length < 3) return 'Name must be at least 3 characters';
-    if (!/^[a-zA-Z\s]+$/.test(name)) return 'Name should contain only letters';
-    return undefined;
+    if (name.length < 3) return 'Minimum 3 characters';
   };
 
-  const validateCardNumber = (number: string): string | undefined => {
-    const cleaned = number.replace(/\s/g, '');
-    if (!cleaned) return 'Card number is required';
-    if (!/^\d+$/.test(cleaned)) return 'Card number should contain only digits';
-    if (cleaned.length !== 16) return 'Card number must be 16 digits';
-    
-    // Luhn algorithm for card validation
+  const validateCardNumber = (num: string) => {
+    const c = num.replace(/\s/g, '');
+    if (!/^\d{16}$/.test(c)) return 'Invalid card number';
+
     let sum = 0;
-    let isEven = false;
-    for (let i = cleaned.length - 1; i >= 0; i--) {
-      let digit = parseInt(cleaned[i]);
-      if (isEven) {
-        digit *= 2;
-        if (digit > 9) digit -= 9;
+    let even = false;
+    for (let i = c.length - 1; i >= 0; i--) {
+      let d = parseInt(c[i]);
+      if (even) {
+        d *= 2;
+        if (d > 9) d -= 9;
       }
-      sum += digit;
-      isEven = !isEven;
+      sum += d;
+      even = !even;
     }
     if (sum % 10 !== 0) return 'Invalid card number';
-    return undefined;
   };
 
-  const validateExpiryDate = (expiry: string): string | undefined => {
-    if (!expiry) return 'Expiry date is required';
-    if (!/^\d{2}\/\d{2}$/.test(expiry)) return 'Format must be MM/YY';
-    
-    const [month, year] = expiry.split('/').map(Number);
-    if (month < 1 || month > 12) return 'Invalid month';
-    
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear() % 100;
-    const currentMonth = currentDate.getMonth() + 1;
-    
-    if (year < currentYear || (year === currentYear && month < currentMonth)) {
-      return 'Card has expired';
-    }
-    
-    return undefined;
+  const validateExpiry = (v: string) => {
+    if (!/^\d{2}\/\d{2}$/.test(v)) return 'MM/YY format required';
+    const [m, y] = v.split('/').map(Number);
+    const now = new Date();
+    const cy = now.getFullYear() % 100;
+    const cm = now.getMonth() + 1;
+    if (m < 1 || m > 12) return 'Invalid month';
+    if (y < cy || (y === cy && m < cm)) return 'Card expired';
   };
 
-  const validateCVV = (cvv: string): string | undefined => {
-    if (!cvv) return 'CVV is required';
-    if (!/^\d{3,4}$/.test(cvv)) return 'CVV must be 3 or 4 digits';
-    return undefined;
+  const validateCVV = (v: string) => {
+    if (!/^\d{3,4}$/.test(v)) return 'Invalid CVV';
   };
 
-  const validateAmount = (amount: string): string | undefined => {
-    if (!amount) return 'Amount is required';
-    const numAmount = parseFloat(amount);
-    if (isNaN(numAmount) || numAmount <= 0) return 'Amount must be greater than 0';
-    if (numAmount > 1000000) return 'Amount too large';
-    return undefined;
+  const validateAmount = (v: string) => {
+    const n = parseFloat(v);
+    if (!n || n <= 0) return 'Invalid amount';
   };
 
-  // Format card number with spaces
-  const formatCardNumber = (value: string): string => {
-    const cleaned = value.replace(/\s/g, '');
-    const chunks = cleaned.match(/.{1,4}/g) || [];
-    return chunks.join(' ').substring(0, 19);
+  /* ---------------- FORMATTERS ---------------- */
+
+  const formatCard = (v: string) =>
+    v.replace(/\D/g, '').match(/.{1,4}/g)?.join(' ').slice(0, 19) || '';
+
+  const formatExpiry = (v: string) => {
+    const c = v.replace(/\D/g, '');
+    return c.length >= 2 ? `${c.slice(0, 2)}/${c.slice(2, 4)}` : c;
   };
 
-  // Format expiry date with slash
-  const formatExpiryDate = (value: string): string => {
-    const cleaned = value.replace(/\D/g, '');
-    if (cleaned.length >= 2) {
-      return `${cleaned.substring(0, 2)}/${cleaned.substring(2, 4)}`;
-    }
-    return cleaned;
+  /* ---------------- HANDLERS ---------------- */
+
+  const validateField = (n: keyof PaymentFormData, v: string) => {
+    const validators: Partial<Record<keyof PaymentFormData, (val: string) => string | undefined>> = {
+      cardholderName: validateCardholderName,
+      cardNumber: validateCardNumber,
+      expiryDate: validateExpiry,
+      cvv: validateCVV,
+      amount: validateAmount,
+    };
+    setErrors(e => ({ ...e, [n]: validators[n]?.(v) }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
-    let formattedValue = value;
-    
-    if (name === 'cardNumber') {
-      formattedValue = formatCardNumber(value);
-    } else if (name === 'expiryDate') {
-      formattedValue = formatExpiryDate(value);
-    } else if (name === 'cvv') {
-      formattedValue = value.replace(/\D/g, '').substring(0, 4);
-    } else if (name === 'amount') {
-      // Allow only numbers and decimal point
-      formattedValue = value.replace(/[^\d.]/g, '');
-    }
-    
-    setFormData(prev => ({
-      ...prev,
-      [name]: formattedValue,
-    }));
+    let v = value;
 
-    // Real-time validation if field has been touched
-    if (touched.has(name)) {
-      validateField(name, formattedValue);
-    }
+    if (name === 'cardNumber') v = formatCard(value);
+    if (name === 'expiryDate') v = formatExpiry(value);
+    if (name === 'cvv') v = value.replace(/\D/g, '').slice(0, 4);
+    if (name === 'amount') v = value.replace(/[^\d.]/g, '');
+
+    const key = name as keyof PaymentFormData;
+    setFormData(f => ({ ...f, [key]: v }));
+    if (touched.has(name)) validateField(key, v);
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setTouched(prev => new Set(prev).add(name));
+    setTouched(t => new Set(t).add(name));
     validateField(name, value);
   };
 
-  const validateField = (name: string, value: string) => {
-    let error: string | undefined;
-    
-    switch (name) {
-      case 'cardholderName':
-        error = validateCardholderName(value);
-        break;
-      case 'cardNumber':
-        error = validateCardNumber(value);
-        break;
-      case 'expiryDate':
-        error = validateExpiryDate(value);
-        break;
-      case 'cvv':
-        error = validateCVV(value);
-        break;
-      case 'amount':
-        error = validateAmount(value);
-        break;
-    }
-    
-    setErrors(prev => ({
-      ...prev,
-      [name]: error,
-    }));
-  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const validateAllFields = (): boolean => {
-    const newErrors: PaymentErrors = {
+    const errs: PaymentErrors = {
       cardholderName: validateCardholderName(formData.cardholderName),
       cardNumber: validateCardNumber(formData.cardNumber),
-      expiryDate: validateExpiryDate(formData.expiryDate),
+      expiryDate: validateExpiry(formData.expiryDate),
       cvv: validateCVV(formData.cvv),
       amount: validateAmount(formData.amount),
     };
-    
-    setErrors(newErrors);
-    setTouched(new Set(['cardholderName', 'cardNumber', 'expiryDate', 'cvv', 'amount']));
-    
-    return !Object.values(newErrors).some(error => error !== undefined);
-  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateAllFields()) {
-      setStatus({
-        type: 'error',
-        message: 'Please fix all errors before submitting',
-      });
+    setErrors(errs);
+    setTouched(new Set(Object.keys(errs)) as Set<string>);
+
+    if (Object.values(errs).some(Boolean)) {
+      setStatus({ type: 'error', message: 'Fix errors before submitting' });
       return;
     }
-    
-    setStatus({ type: 'loading', message: 'Processing payment securely...' });
 
-    // Simulate API call
+    setStatus({ type: 'loading', message: 'Processing payment...' });
+
     setTimeout(() => {
       setStatus({
         type: 'success',
-        message: `Payment of ₹${parseFloat(formData.amount).toFixed(2)} processed successfully!`,
+        message: `Payment ₹${formData.amount} successful`,
       });
-      
-      // Clear form after successful payment
-      setTimeout(() => {
-        setFormData({
-          cardholderName: '',
-          cardNumber: '',
-          expiryDate: '',
-          cvv: '',
-          amount: '',
-        });
-        setErrors({});
-        setTouched(new Set());
-        
-        // Clear cart and redirect
+
+      // Create mock order and persist to localStorage
+      try {
+        const cartRaw = localStorage.getItem('cartItems');
+        const cart: { price: number; quantity: number }[] = cartRaw ? JSON.parse(cartRaw) : [];
+        const total = Number(formData.amount) || cart.reduce((s: number, it: { price: number; quantity: number }) => s + it.price * it.quantity, 0);
+        const order = {
+          orderId: `ORD-${Date.now().toString(36).toUpperCase().slice(-8)}`,
+          items: cart,
+          total,
+          createdAt: new Date().toISOString(),
+        };
+
+        // Save lastOrder and push to orders list
+        localStorage.setItem('lastOrder', JSON.stringify(order));
+        const existing = JSON.parse(localStorage.getItem('orders') || '[]');
+        existing.unshift(order);
+        localStorage.setItem('orders', JSON.stringify(existing));
+
         localStorage.removeItem('cartItems');
-        setTimeout(() => navigate('/'), 2000);
-      }, 2000);
+      } catch (e) {
+        console.error('Failed to create order', e);
+      }
+
+      setTimeout(() => navigate('/order-success'), 1000);
     }, 2000);
   };
 
+  /* ---------------- UI ---------------- */
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="w-full max-w-md rounded-2xl bg-white border border-gray-200 p-8 shadow-lg">
+
+        {/* HEADER */}
         <div className="flex items-center justify-center mb-6">
           <CreditCard className="w-8 h-8 text-indigo-600 mr-2" />
-          <h1 className="text-2xl font-bold text-gray-800">Secure Payment</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Secure Payment
+          </h1>
         </div>
 
+        {/* STATUS */}
         {status.type !== 'idle' && (
-          <div
-            className={`mb-6 p-4 rounded-lg flex items-start gap-3 ${
-              status.type === 'success'
-                ? 'bg-green-50 border border-green-200'
-                : status.type === 'error'
-                ? 'bg-red-50 border border-red-200'
-                : 'bg-blue-50 border border-blue-200'
-            }`}
-          >
-            {status.type === 'success' ? (
-              <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-            ) : status.type === 'error' ? (
-              <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
-            ) : (
-              <div className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mt-0.5 flex-shrink-0" />
-            )}
-            <p
-              className={`text-sm ${
-                status.type === 'success'
-                  ? 'text-green-800'
-                  : status.type === 'error'
-                  ? 'text-red-800'
-                  : 'text-blue-800'
-              }`}
-            >
-              {status.message}
-            </p>
-          </div>
+          <p className={`mb-4 text-sm text-center ${
+            status.type === 'error'
+              ? 'text-red-600'
+              : status.type === 'success'
+              ? 'text-green-600'
+              : 'text-indigo-600'
+          }`}>
+            {status.message}
+          </p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Cardholder Name *
-            </label>
-            <input
-              type="text"
-              name="cardholderName"
-              value={formData.cardholderName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="John Doe"
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all ${
-                errors.cardholderName && touched.has('cardholderName')
-                  ? 'border-red-500'
-                  : 'border-gray-300'
-              }`}
-              disabled={status.type === 'loading'}
-            />
-            {errors.cardholderName && touched.has('cardholderName') && (
-              <p className="text-red-500 text-xs mt-1">{errors.cardholderName}</p>
-            )}
-          </div>
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Card Number *
-            </label>
-            <input
-              type="text"
-              name="cardNumber"
-              value={formData.cardNumber}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="1234 5678 9012 3456"
-              maxLength={19}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all ${
-                errors.cardNumber && touched.has('cardNumber')
-                  ? 'border-red-500'
-                  : 'border-gray-300'
-              }`}
-              disabled={status.type === 'loading'}
-            />
-            {errors.cardNumber && touched.has('cardNumber') && (
-              <p className="text-red-500 text-xs mt-1">{errors.cardNumber}</p>
-            )}
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
+          {(
+            [
+              { name: 'cardholderName' as const, label: 'Cardholder Name' },
+              { name: 'cardNumber' as const, label: 'Card Number' },
+              { name: 'expiryDate' as const, label: 'Expiry MM/YY' },
+              { name: 'cvv' as const, label: 'CVV' },
+              { name: 'amount' as const, label: 'Amount (₹)' },
+            ] as { name: keyof PaymentFormData; label: string }[]
+          ).map((f) => (
+            <div key={f.name}>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Expiry Date *
+                {f.label}
               </label>
               <input
-                type="text"
-                name="expiryDate"
-                value={formData.expiryDate}
+                name={f.name}
+                value={formData[f.name]}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                placeholder="MM/YY"
-                maxLength={5}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all ${
-                  errors.expiryDate && touched.has('expiryDate')
-                    ? 'border-red-500'
-                    : 'border-gray-300'
+                className={`w-full px-4 py-2 rounded-lg bg-white text-gray-900
+                placeholder-gray-400 border focus:ring-2 focus:ring-indigo-500
+                ${errors[f.name as keyof PaymentErrors]
+                  ? 'border-red-500'
+                  : 'border-gray-300'
                 }`}
-                disabled={status.type === 'loading'}
               />
-              {errors.expiryDate && touched.has('expiryDate') && (
-                <p className="text-red-500 text-xs mt-1">{errors.expiryDate}</p>
+              {errors[f.name as keyof PaymentErrors] && touched.has(f.name) && (
+                <p className="text-xs text-red-500 mt-1">
+                  {errors[f.name as keyof PaymentErrors]}
+                </p>
               )}
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                CVV *
-              </label>
-              <input
-                type="text"
-                name="cvv"
-                value={formData.cvv}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="123"
-                maxLength={4}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all ${
-                  errors.cvv && touched.has('cvv') ? 'border-red-500' : 'border-gray-300'
-                }`}
-                disabled={status.type === 'loading'}
-              />
-              {errors.cvv && touched.has('cvv') && (
-                <p className="text-red-500 text-xs mt-1">{errors.cvv}</p>
-              )}
-            </div>
-          </div>
+          ))}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Amount (₹) *
-            </label>
-            <input
-              type="text"
-              name="amount"
-              value={formData.amount}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="0.00"
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all ${
-                errors.amount && touched.has('amount') ? 'border-red-500' : 'border-gray-300'
-              }`}
-              disabled={status.type === 'loading'}
-            />
-            {errors.amount && touched.has('amount') && (
-              <p className="text-red-500 text-xs mt-1">{errors.amount}</p>
-            )}
-          </div>
-
+          {/* BUTTON */}
           <button
-            type="submit"
-            disabled={status.type === 'loading' || status.type === 'success'}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors mt-6 flex items-center justify-center gap-2"
-          >
-            {status.type === 'loading' ? (
-              <>
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Processing...
-              </>
-            ) : (
-              <>
-                <Lock className="w-5 h-5" />
-                Pay Now Securely
-              </>
-            )}
+            disabled={status.type === 'loading'}
+            className="w-full mt-4 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700
+            text-white font-semibold flex items-center justify-center gap-2
+            transition disabled:opacity-60">
+            <Lock className="w-5 h-5" />
+            Pay Securely
           </button>
         </form>
 
-        <div className="mt-6 space-y-2">
-          <p className="text-xs text-gray-500 text-center flex items-center justify-center gap-1">
-            <Lock className="w-3 h-3" />
-            Secured with 256-bit SSL encryption
-          </p>
-          <p className="text-xs text-indigo-600 text-center font-medium">
-            Test card: 4242 4242 4242 4242 | Any future date | Any CVV
-          </p>
-        </div>
+        {/* FOOTER */}
+        <p className="text-xs text-gray-500 text-center mt-6">
+          🔒 256-bit SSL Encrypted • Test card: 4242 4242 4242 4242
+        </p>
       </div>
     </div>
   );

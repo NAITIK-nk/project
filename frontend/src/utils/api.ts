@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // Get token from localStorage
 const getToken = (): string | null => {
@@ -38,19 +38,33 @@ export const apiRequest = async (
 
 // API helper functions
 export const api = {
-  get: (endpoint: string) => apiRequest(endpoint, { method: 'GET' }),
-  post: (endpoint: string, data?: any) =>
+  get: async <T = unknown>(endpoint: string): Promise<T> => {
+    const res = await apiRequest(endpoint, { method: 'GET' });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(txt || res.statusText || 'API GET request failed');
+    }
+    return (await res.json()) as T;
+  },
+
+  post: <T = unknown>(endpoint: string, data?: T) =>
     apiRequest(endpoint, {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-  put: (endpoint: string, data?: any) =>
+  put: <T = unknown>(endpoint: string, data?: T) =>
     apiRequest(endpoint, {
       method: 'PUT',
       body: JSON.stringify(data),
     }),
-  delete: (endpoint: string) => apiRequest(endpoint, { method: 'DELETE' }),
-  patch: (endpoint: string, data?: any) =>
+  delete: <T = unknown>(endpoint: string, data?: T) => {
+    const options: RequestInit = { method: 'DELETE' };
+    if (data) {
+      options.body = JSON.stringify(data);
+    }
+    return apiRequest(endpoint, options);
+  },
+  patch: <T = unknown>(endpoint: string, data?: T) =>
     apiRequest(endpoint, {
       method: 'PATCH',
       body: JSON.stringify(data),

@@ -10,17 +10,22 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  const { login, register, isAuthenticated } = useAuth();
+  const { login, register, isAuthenticated, isAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   // Redirect if already authenticated
   React.useEffect(() => {
     if (isAuthenticated) {
-      const from = (location.state as any)?.from?.pathname || '/';
+      // If admin, redirect to admin dashboard
+      if (isAdmin) {
+        navigate('/admin', { replace: true });
+        return;
+      }
+      const from = ((location.state as { from?: { pathname?: string } } | undefined)?.from?.pathname) || '/';
       navigate(from, { replace: true });
     }
-  }, [isAuthenticated, navigate, location]);
+  }, [isAuthenticated, isAdmin, navigate, location]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -56,17 +61,35 @@ const Login: React.FC = () => {
           return;
         }
         await register(formData.email, formData.password, formData.name);
-        // Navigate to the page user was trying to access, or home
-        const from = (location.state as any)?.from?.pathname || '/';
-        navigate(from, { replace: true });
       } else {
         await login(formData.email, formData.password);
-        // Navigate to the page user was trying to access, or home
-        const from = (location.state as any)?.from?.pathname || '/';
-        navigate(from, { replace: true });
       }
-    } catch (err: any) {
-      setError(err.message || 'An error occurred. Please try again.');
+      
+      // Wait a moment for AuthContext to update, then check role
+      // The login/register functions update the context, but we need to check the result
+      setTimeout(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          try {
+            const user = JSON.parse(storedUser);
+            if (user.role === 'admin') {
+              navigate('/admin', { replace: true });
+              return;
+            }
+          } catch (e) {
+            console.error('[Login] Error parsing user from localStorage:', e);
+          }
+        }
+        
+        const from = ((location.state as { from?: { pathname?: string } } | undefined)?.from?.pathname) || '/';
+        navigate(from, { replace: true });
+      }, 100);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An error occurred. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -89,13 +112,11 @@ const Login: React.FC = () => {
     // **TODO**: Implement your Google Sign-In logic here.
     // This would typically involve redirecting to Google's OAuth screen.
     alert('Signing in with Google...');
-    console.log('Initiating Google login flow.');
   };
 
   const handleFacebookLogin = () => {
     // **TODO**: Implement your Facebook Sign-In logic here.
     alert('Signing in with Facebook...');
-    console.log('Initiating Facebook login flow.');
   };
 
   return (

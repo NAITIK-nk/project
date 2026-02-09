@@ -1,29 +1,40 @@
 {
-  "name": "project-backend",
-  "version": "0.1.0",
-  "private": true,
-  "main": "dist/index.js",
+  "name": "samay-backend",
+  "version": "1.0.0",
+  "description": "SAMAY Watch Store Backend API",
+  "type": "module",
+  "main": "SAMAY.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "seed": "ts-node src/scripts/seedProducts.ts",
-    "generate-secret": "node generate-secret.js"
+    "start": "node SAMAY.js",
+    "dev": "node SAMAY.js",
+    "create-admin": "node scripts/createAdmin.js",
+    "update-admin": "node scripts/updateUserToAdmin.js",
+    "list-users": "node scripts/listUsers.js",
+<<<<<<< HEAD
+    "fix-favorite-indexes": "node scripts/fixFavoriteIndexes.js",
+    "import-products": "node scripts/importProducts.js"
+=======
+    "fix-favorite-indexes": "node scripts/fixFavoriteIndexes.js"
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
   },
+  "keywords": [
+    "samay",
+    "watches",
+    "ecommerce"
+  ],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.8.8"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/express": "^4.17.17",
-    "@types/jsonwebtoken": "^9.0.2",
-    "@types/node": "^20.3.1",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6"
+    "jsonwebtoken": "^9.0.3",
+<<<<<<< HEAD
+    "mongoose": "^7.6.3",
+    "resend": "^6.7.0"
+=======
+    "mongoose": "^7.6.3"
+>>>>>>> 2d2447836291bb1712f79b1df66c3981ea700cf6
   }
 }

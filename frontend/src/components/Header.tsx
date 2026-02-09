@@ -32,145 +32,108 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, favoriteItemsCount }) =
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-lg bg-transparent shadow-lg border border-gray-200/20 rounded-b-xl">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/10 border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <div className="flex justify-between items-center py-4">
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <Watch className="h-8 w-8 text-black group-hover:text-gray-800 transition-colors drop-shadow-md" />
-            <span className="text-2xl font-bold text-black tracking-wider drop-shadow-md">SAMAY</span>
+          {/* LOGO */}
+          <Link to="/" className="flex items-center space-x-2 auto-contrast">
+            <Watch className="h-8 w-8" />
+            <span className="text-2xl font-bold tracking-wider">
+              SAMAY
+            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-6 backdrop-blur-md px-6 py-2 rounded-full shadow-sm border border-gray-200/10">
+          {/* DESKTOP NAV */}
+          <nav className="hidden md:flex space-x-6 px-6 py-2 rounded-full backdrop-blur-md bg-white/5 border border-white/10 auto-contrast">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`relative py-2 px-1 text-sm font-medium transition-colors duration-300 drop-shadow-sm text-outline-white ${
-                  isActive(link.path)
-                    ? 'text-black font-semibold'
-                    : 'text-gray-800 hover:text-black'
+                className={`text-sm font-medium transition ${
+                  isActive(link.path) ? 'font-semibold' : ''
                 }`}
               >
                 {link.name}
               </Link>
             ))}
-          </div>
+          </nav>
 
-          {/* Right Actions */}
-          <div className="flex items-center space-x-4">
+          {/* RIGHT ACTIONS */}
+          <div className="flex items-center space-x-4 auto-contrast">
+
             {isAuthenticated ? (
-              <div className="hidden md:flex items-center space-x-3">
-                <div className="flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-md text-black border border-gray-200/20 shadow-sm">
-                  <User className="h-5 w-5 drop-shadow-sm" />
-                  <span className="text-sm font-medium drop-shadow-sm">
+              <>
+                <div className="hidden md:flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-md bg-white/5 border border-white/10">
+                  <User className="h-5 w-5" />
+                  <span className="text-sm">
                     {user?.name || user?.email?.split('@')[0]}
                   </span>
                 </div>
+
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-md text-black hover:text-gray-800 transition-all border border-gray-200/20 shadow-sm hover:shadow-md"
+                  className="hidden md:flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-md bg-white/5 border border-white/10"
                 >
-                  <LogOut className="h-5 w-5 drop-shadow-sm" />
-                  <span className="text-sm font-medium drop-shadow-sm">Logout</span>
+                  <LogOut className="h-5 w-5" />
+                  <span className="text-sm">Logout</span>
                 </button>
-              </div>
+              </>
             ) : (
               <Link
                 to="/login"
-                className="hidden md:flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-md text-black hover:text-gray-800 transition-all border border-gray-200/20 shadow-sm hover:shadow-md"
+                className="hidden md:flex items-center space-x-2 px-4 py-2 rounded-full backdrop-blur-md bg-white/5 border border-white/10"
               >
-                <User className="h-5 w-5 drop-shadow-sm" />
-                <span className="text-sm font-medium drop-shadow-sm">Login</span>
+                <User className="h-5 w-5" />
+                <span className="text-sm">Login</span>
               </Link>
             )}
 
-            {/* Cart */}
-            <Link
-              to="/cart"
-              className="relative flex items-center space-x-1 text-black hover:text-gray-800 transition-colors drop-shadow-sm"
-            >
-              <ShoppingBag className="h-5 w-5 drop-shadow-sm" />
+            {/* CART */}
+            <Link to="/cart" className="relative">
+              <ShoppingBag className="h-5 w-5" />
               {cartItemsCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black text-white rounded-full text-xs w-5 h-5 flex items-center justify-center shadow-md">
+                <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {cartItemsCount}
                 </span>
               )}
             </Link>
 
-            {/* Favorites */}
-            <Link
-              to="/favorites"
-              className="relative flex items-center space-x-1 text-black hover:text-gray-800 transition-colors drop-shadow-sm"
-            >
-              <Heart className="h-5 w-5 drop-shadow-sm" />
+            {/* FAVORITES */}
+            <Link to="/favorites" className="relative">
+              <Heart className="h-5 w-5" />
               {favoriteItemsCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center shadow-md">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {favoriteItemsCount}
                 </span>
               )}
             </Link>
 
-            {/* Mobile Toggle */}
+            {/* MOBILE MENU */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-md text-black hover:text-gray-800 transition-colors backdrop-blur-sm border border-gray-200/10"
+              className="md:hidden p-2 rounded-md backdrop-blur-md bg-white/5 border border-white/10"
             >
-              {isMenuOpen ? <X className="h-6 w-6 drop-shadow-sm" /> : <Menu className="h-6 w-6 drop-shadow-sm" />}
+              {isMenuOpen ? <X /> : <Menu />}
             </button>
+
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* MOBILE NAV */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200/20 backdrop-blur-lg rounded-b-xl">
-            <div className="py-4 space-y-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block px-3 py-2 text-base font-medium drop-shadow-sm text-outline-white ${
-                    isActive(link.path)
-                      ? 'text-black bg-black/10 font-semibold'
-                      : 'text-gray-800 hover:text-black hover:bg-gray-500/5'
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-
-              {/* Auth in mobile */}
-              {isAuthenticated ? (
-                <>
-                  <div className="px-3 py-2 text-base font-medium text-gray-800 border-b border-gray-200/20 drop-shadow-sm text-outline-white">
-                    <div className="flex items-center space-x-2">
-                      <User className="h-5 w-5" />
-                      <span>{user?.name || user?.email?.split('@')[0]}</span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-3 py-2 text-base font-medium text-gray-800 hover:text-black hover:bg-gray-500/5 rounded-md transition-colors drop-shadow-sm text-outline-white"
-                  >
-                    <div className="flex items-center space-x-2">
-                      <LogOut className="h-5 w-5" />
-                      <span>Logout</span>
-                    </div>
-                  </button>
-                </>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block px-3 py-2 text-base font-medium text-gray-800 hover:text-black hover:bg-gray-500/5 rounded-md transition-colors drop-shadow-sm text-outline-white"
-                >
-                  Login
-                </Link>
-              )}
-            </div>
+          <div className="md:hidden py-4 space-y-2 auto-contrast">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2"
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
         )}
       </div>
